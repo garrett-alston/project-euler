@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+import numpy as np
+
+
+fibonacci_data = np.zeros( (36), dtype=np.ulonglong )
+
+def fill_fibonacci(lastN):
+    fibonacci_data[0]=1
+    fibonacci_data[1]=2
+    for i in range(2,lastN):
+        fibonacci_data[i]=fibonacci_data[i-1]+fibonacci_data[i-2]
 
 def fibonacci(n):
     if n==1:
@@ -6,6 +16,9 @@ def fibonacci(n):
     if n==2:
         return 2
     return fibonacci(n-1)+fibonacci(n-2)
+
+def fast_fibonacci(n):
+    return fibonacci_data[n-1]
 
 def problem_2():
     """
@@ -17,13 +30,18 @@ def problem_2():
     find the sum of the even-valued terms.
     """
     sum=0
-    stop=100 #4000001
-    for i in range(2,stop,2):
-        sum+=fibonacci(i)
+    upper_bound=4000000
+    for i in range(1,36):
+        nextNumber=fast_fibonacci(i)
+        if nextNumber>upper_bound:
+            print("Breaking at",i)
+            break
+        if nextNumber%2==0:
+            sum+=nextNumber
     return sum
 
 
 
 if __name__ == "__main__":
-    print( problem_2() )
-    
+    fill_fibonacci(35)
+    print( "Answer:",problem_2() )
