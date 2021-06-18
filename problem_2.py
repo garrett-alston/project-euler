@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
 
+def fibonacci(n):
+    if n==1:
+        return 1
+    if n==2:
+        return 2
+    return fibonacci(n-1)+fibonacci(n-2)
 
 def problem_2():
     """
@@ -10,7 +16,11 @@ def problem_2():
     By considering the terms in the Fibonacci sequence whose values do not exceed four million,
     find the sum of the even-valued terms.
     """
-    return 0
+    sum=0
+    stop=100 #4000001
+    for i in range(2,stop,2):
+        sum+=fibonacci(i)
+    return sum
 
 
 
